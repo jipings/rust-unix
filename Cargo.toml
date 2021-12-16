@@ -9,3 +9,5 @@ edition = "2018"
 [dependencies]
 libc = "0.2.109"
 chrono = "0.4.19"
+clap = "2.34.0"
+ansi_term = "0.12.1"
