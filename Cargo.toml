@@ -31,3 +31,4 @@ regex = "1.5.4"
 select = "0.6.0-alpha.1"
 tokio = { version = "1", features = ["full"] }
 url = "2.2.2"
+mime = "0.3.16"
