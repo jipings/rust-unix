@@ -1,17 +1,20 @@
-use ansi_term::{Colour, Style};
+use tokio::time::timeout;
+use tokio::sync::oneshot;
 
-fn main() {
-  println!("This is {} in color, {} in color and {} in color",
-    Colour::Red.paint("red"),
-    Colour::Blue.paint("blue"),
-    Colour::Green.paint("green")
-  );
+use std::time::Duration;
 
-  println!("{} and this is not", Style::new().bold().paint("This is Bold"));
+#[tokio::main]
+async fn main() {
+    let (tx, rx) = oneshot::channel::<String>();
 
-  println!("{}, {} and {}", 
-    Colour::Yellow.paint("This is colored"),
-    Style::new().bold().paint("this is bold"),
-    Colour::Yellow.bold().paint("this is bold and colored")
-  );
+    tokio::spawn(async move {
+        // if let Err(_) = tx.send(3) {
+        //     println!("the receiver dropped");
+        // }
+    });
+
+    // Wrap the function with a `Timeout` set to expire in 10 milliseconds
+    if let Err(_) = timeout(Duration::from_millis(10), rx).await {
+        println!("did not receive value within 10 ms");
+    }
 }
